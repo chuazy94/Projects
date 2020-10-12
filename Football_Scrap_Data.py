@@ -1,10 +1,9 @@
+## Special credits to Sergi Lehjyi (Web Scrapping Advanced Football Statistics) https://towardsdatascience.com/web-scraping-advanced-football-statistics-11cace1d863a
+
 import numpy as np# linear algebra 
 import pandas as pd# data processing, CSV file I/O (e.g. pd.read_csv) 
 import requests 
 from bs4 import BeautifulSoup
-
-
-# In[ ]:
 
 
 # create urls for all seasons of all leagues 
@@ -21,13 +20,8 @@ soup = BeautifulSoup(res.content, "lxml")
 scripts = soup.find_all('script')
 
 
-# In[ ]:
-
-
 scripts
 
-
-# In[ ]:
 
 
 ## After creating a soup of html tags, it becomes a string, so we just find the text and extract the JSON from it
@@ -57,9 +51,6 @@ df = pd.read_json (json_data)
 print (df)
 
 
-# In[ ]:
-
-
 # Get teams and their relevant ids and put them into separate dictionary 
 data = json.loads(json_data)
 teams = {} 
@@ -67,14 +58,10 @@ for id in data.keys():
     teams[id] = data[id]['title'] ##This returns the team names
 
 
-# In[ ]:
-
 
 ## the json object is made of 3 main keys - id, title and history. The first layer of dictionary uses id as well
 data
 
-
-# In[ ]:
 
 
 ## Now, we see that the history tab is where the data is, lets create a dframe of the data
@@ -86,33 +73,13 @@ for id in data.keys():
     values = list(data[id]['history'][0].values()) 
 
 
-# In[ ]:
-
-
 df = pd.DataFrame(columns = ['metrics','values'])
-
-
-# In[ ]:
 
 
 df['metrics'],df['values']=metrics,values
 
 
-# In[ ]:
-
-
-df
-
-
-# In[ ]:
-
-
-teams
-
-
-# In[ ]:
-
-
+## Arsenal Data
 arsenal_data = [] 
 for row in data['83']['history']:
     arsenal_data.append(list(row.values())) 
@@ -120,43 +87,22 @@ df_arsenal = pd.DataFrame(arsenal_data, columns=metrics)
 df_arsenal.head(2)
 
 
-# In[ ]:
-
-
 df_arsenal
-
-
-# In[ ]:
-
 
 import seaborn as sns
 sns.factorplot('xG',data=df_arsenal)
-
-
-# In[ ]:
 
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-# In[ ]:
 
-
-data=df_arsenal.where(df_arsenal["h_a"]=="h")
-data
-
-
-# In[ ]:
-
-
+# Plotting factorplot of xG home and away
 sns.factorplot(y='xG', x = 'date',data=df_arsenal.where(df_arsenal["h_a"]=="h"),hue='h_a')
 sns.factorplot(y='xG', x = 'date',data=df_arsenal.where(df_arsenal["h_a"]=="a"),hue='h_a')
 
-
-# In[ ]:
-
-
+# Plotting xG boxplots home and away
 fig, (ax1, ax2) = plt.subplots(1,2, figsize = (10, 6))
 sns.boxplot(y="xG", data=df_arsenal.where(df_arsenal["h_a"]=="h"), ax = ax1)
 ax1.set_xlabel("Home");
