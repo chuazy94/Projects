@@ -210,7 +210,10 @@ def prepare_passes_data(team_id):
     player_total_pass = player_coord.join(df_total_pass,how = 'left')
     player_total_pass = player_total_pass.rename(columns = {0:'Total_Player_Passes'})
     max_player_pass = player_total_pass['Total_Player_Passes'].max()
-    
+   
+def _convert_range_passes (number_of_pass,max_passes,max_width):
+    #max_scale = 
+    return (number_of_pass / max_passes) * max_width    
 
 def plot_passing_network():
     ax = pitch()
