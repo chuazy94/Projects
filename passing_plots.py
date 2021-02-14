@@ -143,7 +143,7 @@ def load_json2(match_id):
     # print complete elements list 
     #print(matchCentredata['events']) 
 
-# Return the matchCentredata as a dataframe
+    # Return the matchCentredata as a dataframe
 
     df = pd.DataFrame(matchCentredata['events'])
     
@@ -210,7 +210,7 @@ def plot_Cross_map(test_df,team_id):
     
     fig = pitch()
 
-## Successful crosses
+    ## Successful crosses
 
     plt.plot(test_df.query('teamId == %s & isCross == 1 & outcomeType_value == 1'%team_id)['x'],
              test_df.query('teamId == %s & isCross == 1 & outcomeType_value == 1'%team_id)['y'], 
@@ -221,7 +221,7 @@ def plot_Cross_map(test_df,team_id):
                  xytext=(row[['x','y']]),
                  alpha=0.5, arrowprops=dict(alpha=0.5,width=0.5,headlength=4.0,headwidth=4.0,color='g'),annotation_clip=False)
 
-## Unsuccessful crosses
+    ## Unsuccessful crosses
 
     plt.plot(test_df.query("teamId == %s & isCross == 1 & outcomeType_value == 0"%team_id)['x'],
              test_df.query("teamId == %s & isCross == 1 & outcomeType_value == 0"%team_id)['y'], 
@@ -237,7 +237,7 @@ def plot_Pass_map(test_df,team_id,playerid = 0):
     
     fig = pitch()
 
-## Successful crosses
+    ## Successful crosses
     if playerid == 0:
         plt.plot(test_df.query("teamId == %s & type_displayName =='Pass' & outcomeType_value == 1"%(team_id))['x'],
                  test_df.query("teamId == %s & type_displayName =='Pass' & outcomeType_value == 1"%(team_id))['y'], 
@@ -248,7 +248,7 @@ def plot_Pass_map(test_df,team_id,playerid = 0):
             xytext=(row[['x','y']]),
             alpha=0.5, arrowprops=dict(alpha=0.5,width=0.5,headlength=4.0,headwidth=4.0,color='g'),annotation_clip=False)
 
-## Unsuccessful crosses
+    ## Unsuccessful crosses
 
         plt.plot(test_df.query("teamId == %s & type_displayName =='Pass' & outcomeType_value == 0"%(team_id))['x'],
                  test_df.query("teamId == %s & type_displayName =='Pass' & outcomeType_value == 0"%(team_id))['y'], 
@@ -269,7 +269,7 @@ def plot_Pass_map(test_df,team_id,playerid = 0):
             xytext=(row[['x','y']]),
             alpha=0.5, arrowprops=dict(alpha=0.5,width=0.5,headlength=4.0,headwidth=4.0,color='g'),annotation_clip=False)
 
-## Unsuccessful crosses
+    ## Unsuccessful crosses
 
         plt.plot(test_df.query("teamId == %s & playerId == %s & type_displayName =='Pass' & outcomeType_value == 0"%(team_id,playerid))['x'],
                   test_df.query("teamId == %s & playerId == %s & type_displayName =='Pass' & outcomeType_value == 0"%(team_id,playerid))['y'], 
@@ -286,7 +286,7 @@ def plot_Pass_map2(test_df,team_id,playerid):
     
     fig = pitch()
 
-## Successful crosses
+    ## Successful crosses
   
     plt.plot(test_df.query("teamId == %s & playerId == %s & type_displayName =='Pass' & outcomeType_value == 1"%(team_id,playerid))['x'],
                    test_df.query("teamId == %s & playerId == %s & type_displayName =='Pass' & outcomeType_value == 1"%(team_id,playerid))['y'],
